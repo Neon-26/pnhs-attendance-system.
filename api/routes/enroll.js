@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const pool = require('../config/database');
+const pool = require('../../api/config/database');
 
 router.get('/students', async (req, res) => {
     try {
