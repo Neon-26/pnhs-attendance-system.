@@ -9,11 +9,14 @@ const studentRoutes = require('./routes/students');
 const enrollRoutes = require('./routes/enroll');
 const studentPortalRoutes = require('./routes/student_portal');
 const teacherVerifyRoutes = require('./routes/teacher_verify');
+const path = require('path');
 
 const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../Frontend')));
+
+if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+  app.use(express.static(path.join(__dirname, '../Frontend')));
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -24,9 +27,10 @@ const pool = new Pool({
 });
 
 app.get('/api/health', async (req, res) => res.json({ status: 'OK' }));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../Frontend', 'login.html'));
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/login.html'));
+  });
+}
 
 app.post('/api/auth/login', async (req, res) => {
   try {
