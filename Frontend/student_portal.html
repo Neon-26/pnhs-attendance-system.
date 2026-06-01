@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - PNHS</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/student_portal.css">
+    <link rel="icon" href="Css/logo1.png" type="image/x-icon">
+</head>
+<body>
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <img src="css/logo1.png" alt="logo" class="logo">
+                <div class="header-title">
+                    <h2>PNHS STUDENT</h2>
+                    <span>ATTENDANCE SYSTEM</span>
+                </div>
+            </div>
+            <button class="btn-settings" onclick="openSettingsModal()" style="margin-right: 10px;"><i class="fas fa-cog"></i> Settings</button>
+            <button class="btn-logout-top" id="logoutBtn">LOG OUT <i class="fas fa-sign-out-alt"></i></button>
+        </header>
+
+        <div class="portal-container">
+            <div class="welcome-card">
+                <div class="welcome-left">
+                    <div class="avatar-container">
+                        <div class="avatar-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="status-indicator" id="statusIndicator">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                    </div>
+                    <div class="welcome-info">
+                        <p class="greeting">Welcome back,</p>
+                        <h2 id="studentName">Loading...</h2>
+                        <p class="student-id-badge">
+                            <i class="fas fa-id-card"></i>
+                            <span id="studentId">---</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="welcome-right">
+                    <div class="class-card">
+                        <span class="class-label">CLASS</span>
+                        <h3 id="studentClass">---</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="today-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-calendar-check"></i> Today's Attendance</h3>
+                    <span class="date-display" id="currentDate">---</span>
+                </div>
+
+                <div class="status-card" id="mainStatusCard">
+                    <div class="status-icon-wrapper" id="statusIconWrapper">
+                        <div class="status-icon" id="statusIcon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                     
+                    <div class="status-content">
+                        <h2 id="statusTitle">ATTENDANCE</h2>
+                        <p id="statusSubtitle">Your attendance below</p>
+                    </div>
+
+                    <div class="action-buttons" id="actionButtons">
+                        <button class="btn-attend present" onclick="openReportModal('present')">
+                            <div class="btn-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>I'm Present</span>
+                        </button>
+                        <button class="btn-attend absent" onclick="openReportModal('absent')">
+                            <div class="btn-icon">
+                                <i class="fas fa-user-minus"></i>
+                            </div>
+                            <span>Absent</span>
+                        </button>
+                    </div>
+
+                    <div class="pending-state" id="pendingState" style="display: none;">
+                        <div class="pending-animation">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <p>Submitted: <strong id="submittedType">---</strong></p>
+                        <p class="pending-note">Waiting for teacher's approval</p>
+                    </div>
+
+                    <div class="approved-state" id="approvedState" style="display: none;">
+                        <div class="approved-badge" id="approvedBadge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 id="confirmedStatus">PRESENT</h2>
+                        <p>Your attendance has been confirmed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <div class="stat-icon present">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Present</span>
+                        <span class="stat-value" id="totalPresent">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon absent">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Absent</span>
+                        <span class="stat-value" id="totalAbsent">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-value" id="totalPending">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="loading-item">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="excuseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope-open-text"></i> Report Absence</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <p>Please provide a valid reason for your absence:</p>
+                <textarea id="excuseText" placeholder="Type your reason here (e.g., sick, family emergency, etc.)..." rows="4"></textarea>
+                <button class="btn-submit-excuse" onclick="submitExcuse()">
+                    <i class="fas fa-paper-plane"></i> SUBMIT ABSENCE
+                </button>
+            </div>
+        </div>
+    </div>
+
+<div class="modal" id="successModal">
+    <div class="modal-content success-content">
+        <div class="success-icon pending-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <h3>Report Submitted!</h3>
+        <p id="successMessage">Your attendance has been submitted for approval.</p>
+        <button class="btn-close-success" onclick="closeSuccessModal()">OK</button>
+    </div>
+</div>
+
+<div class="modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="settings-section">
+                <h4><i class="fas fa-lock"></i> Change Password</h4>
+                <p class="settings-info">Enter your email to receive a verification code.</p>
+                
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" id="settingsEmail" placeholder="your@email.com">
+                </div>
+                
+                <button class="btn-send-code" onclick="sendVerificationCode()">
+                    <i class="fas fa-paper-plane"></i> Send Verification Code
+                </button>
+            </div>
+
+            <div class="verify-section" id="verifySection" style="display: none;">
+                <div class="form-group">
+                    <label>Verification Code</label>
+                    <input type="text" id="verificationCode" placeholder="Enter 6-digit code" maxlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" placeholder="Enter new password">
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                </div>
+                
+                <button class="btn-change-password" onclick="changePassword()">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/student_portal.js"></script>
+</body>
+</html>

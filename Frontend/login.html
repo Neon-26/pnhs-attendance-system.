@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNHS Student Attendance System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="Css/logo1.png" type="image/x-icon">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-icon">
+                <img src="css/logo1.png" alt="Logo" class="logo">
+            </div>
+            <h2>PNHS STUDENT<br><span>ATTENDANCE SYSTEM</span></h2>
+            <p class="tagline">Efficiency | Oversight | Accuracy</p>
+        </div>
+        
+        <h1 class="welcome-text">Welcome Back!</h1>
+        <p class="sub-text">Sign in to your portal account.</p>
+
+        <form class="login-form" id="loginForm">
+            <div class="input-group">
+                <i class="far fa-user input-icon"></i>
+                <input type="text" placeholder="Username" id="username" required>
+            </div>
+
+            <div class="input-group">
+                <i class="far fa-lock input-icon"></i>
+                <input type="password" id="password" placeholder="Password" required>
+                <i class="far fa-eye-slash toggle-password" onclick="togglePass()"></i>
+            </div>
+
+            <button type="submit" class="btn-submit">SIGN IN</button>
+        </form>
+    </div>
+
+    <footer class="portal-footer">
+        <p>© 2026 PNHS STUDENT ATTENDANCE SYSTEM</p>
+        <div class="footer-links">
+            <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
