@@ -1,22 +1,16 @@
 {
   "name": "pnhs-attendance-system",
   "version": "1.0.0",
-  "description": "PNHS Student Attendance System",
-  "main": "Backend/server.js",
   "scripts": {
-    "start": "node Backend/server.js",
-    "dev": "node Backend/server.js"
+    "start": "node api/server.js"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "pg": "^8.11.3",
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^6.9.7",
-    "pg": "^8.11.3"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
   }
 }
