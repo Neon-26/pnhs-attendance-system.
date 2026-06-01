@@ -13,6 +13,7 @@ const teacherVerifyRoutes = require('./routes/teacher_verify');
 const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../Frontend')));
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -23,6 +24,9 @@ const pool = new Pool({
 });
 
 app.get('/api/health', async (req, res) => res.json({ status: 'OK' }));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Frontend', 'login.html'));
+});
 
 app.post('/api/auth/login', async (req, res) => {
   try {
